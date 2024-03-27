@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "chart.js": "3.9.1",
+    "chartjs-node-canvas": "^4.1.6",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.5",
+    "node-telegram-bot-api": "^0.65.1"
+  }
+}
