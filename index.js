@@ -126,10 +126,10 @@ bot.on('message', async (message) => {
 				database.set(message.from.id, { cookie: result, iv: iv.toString("hex") });
 
 				return bot.sendMessage(message.chat.id, `Отлично! Я сохранил только \`${result}\` и iv: \`${iv.toString("hex")}\`.`, defaultSendOptions(database.get(message.from.id)));
-			} catch (erorr) {
-				console.error(erorr);
+			} catch (error) {
+				console.error(error);
 
-				return bot.sendMessage(message.chat.id, "Произошла какая-то ошибка при шифровании. Пожалуйста, попробуйте еще раз или сообщите об этом в поддержку.", {
+				return bot.sendMessage(message.chat.id, "Произошла какая-то ошибка при шифровании. Пожалуйста, попробуйте еще раз или сообщите об разработчику бота - @xaliksss.", {
 					reply_markup: {
 						inline_keyboard: [[{ text: commands.cancelCookies, callback_data: "cancelCookies" }]],
 					},
@@ -555,35 +555,20 @@ function drawBtcChart(data) {
 }
 
 function drawHashrateChart(data) {
-	const colors = {
-		eth: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		rvn: "#f4b87c",
-		xmr: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		xmr_cpu: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		xmr_gpu: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		ubq: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		etc: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		erg: "#bc80bd",
-		ethw: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		kas: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		nexa: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		iron: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		cfx: "#bf4ad8",
-		zeph: "#7e1aff",
-		xna: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		clore: "#1928ff",
-		pyi: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		kls: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		btc: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		alph: "#44d8d8",
-		exp: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		zec: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		grin: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		grin31: Math.floor(Math.random() * 16777215).toString(16), // idk color
-		beam: Math.floor(Math.random() * 16777215).toString(16), // idk color
-	};
 	const usedAlgos = [];
 	const algos = Object.keys(data.algos);
+	const colors = {
+		...algos.reduce((obj, algo) => ({ ...obj, [algo]: `#${Math.floor(Math.random() * 16777215).toString(16)}` }), {}),
+		rvn: "#f4b87c",
+		erg: "#bc80bd",
+		iron: "#ffed6f",
+		cfx: "#db99e8",
+		zeph: "#7e1aff",
+		xna: "#4ba93b",
+		clore: "#1928ff",
+		pyi: "#e2ff66",
+		alph: "#44d8d8",
+	};
 
 	for (const hashrate of data.hashrate) {
 		usedAlgos.push(...Object.entries(hashrate).filter(([key, value]) => algos.includes(key) && value > 0 && !usedAlgos.includes(key)).map(([algo]) => algo));
